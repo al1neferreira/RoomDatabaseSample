@@ -7,7 +7,8 @@ import br.com.aline.roomdatabase.model.Transaction
 import br.com.aline.roomdatabase.repo.TransactionRepo
 import kotlinx.coroutines.launch
 
-class TransactionViewModel(application:Application, private val transactionRepo: TransactionRepo): AndroidViewModel(application) {
+class TransactionViewModel(application: Application, private val transactionRepo: TransactionRepo) :
+    AndroidViewModel(application) {
 
 
     fun insertTransaction(transaction: Transaction) = viewModelScope.launch {
@@ -22,9 +23,10 @@ class TransactionViewModel(application:Application, private val transactionRepo:
         transactionRepo.updateTransaction(transaction)
     }
 
+
     init {
         viewModelScope.launch {
-            transactionRepo.getAllTransactions().collect{ result->
+            transactionRepo.getAllTransactions().collect { result ->
 
 
             }
