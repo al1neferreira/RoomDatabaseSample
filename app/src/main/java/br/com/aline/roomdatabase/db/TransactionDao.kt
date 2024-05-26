@@ -1,7 +1,6 @@
 package br.com.aline.roomdatabase.db
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -13,13 +12,16 @@ import kotlinx.coroutines.flow.Flow
 interface TransactionDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTransaction(transaction: br.com.aline.roomdatabase.model.Transaction)
+    suspend fun insert(transaction: Transaction)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateTransaction(transaction: br.com.aline.roomdatabase.model.Transaction)
+    suspend fun update(transaction: Transaction)
 
-    @Delete()
-    suspend fun deleteTransaction(transaction: br.com.aline.roomdatabase.model.Transaction)
+    @Query("DELETE FROM all_transactions WHERE id =:id")
+    suspend fun deleteById(id: Int)
+
+    @Query("DELETE FROM all_transactions")
+    suspend fun deleteAll(transaction: Transaction)
 
     //get all saved transaction list
     @Query("SELECT * FROM all_transactions")
